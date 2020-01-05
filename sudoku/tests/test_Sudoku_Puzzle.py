@@ -77,21 +77,27 @@ unsolved_puzzles.append(unsolved2)
 unsolved_puzzles.append(unsolved3)
 unsolved_puzzles.append(unsolved4)
 
-# iterate through tests
+# iterate through tests, time entire test
 start_of_testing = timer()
 for puzzle in unsolved_puzzles:
+    # print the initial puzzle
     print('\n\nPuzzle:')
     pprint(puzzle)
+
+    # setup sudoku object and timers. Run the solve function for puzzle
+    sudoku_puzzle = Sudoku_Puzzle.Sudoku(puzzle)
     test_case_start = timer()
-    result = Sudoku_Puzzle.solve(puzzle,0,0)
+    result = sudoku_puzzle.solve(0,0)
     test_case_end = timer()
     print('===')
+
+    # if solution is possible or not
     if result:
         print('Puzzle is legal. Solution was found in ' + str(round(test_case_end-test_case_start,4)) + ' seconds. Solution is:')
-        pprint(puzzle)
+        pprint(sudoku_puzzle.get_puzzle())
     else:
         print('Puzzle is not legal and cannot be solved. This was determined in ' + str(round(test_case_end-test_case_start,7)) + ' seconds.')
 
 end_of_testing = timer()
 print('---------------')
-print('Testing has ended. It took a total of ' + str(round(end_of_testing-start_of_testing,4)) + ' seconds, with an average solve time of ' + str(round((end_of_testing-start_of_testing)/len(unsolved_puzzles),4)) + ' seconds.')
+print('\nTesting has ended. It took a total of ' + str(round(end_of_testing-start_of_testing,4)) + ' seconds, with an average solve time of ' + str(round((end_of_testing-start_of_testing)/len(unsolved_puzzles),4)) + ' seconds.')
