@@ -26,9 +26,8 @@ solution:
  [3, 4, 5, 2, 8, 6, 1, 7, 9]]
 '''
 
-
-
-unsolved = [[5,3,None,None,7,None,None,None,None],
+# base test case
+unsolved1 = [[5,3,None,None,7,None,None,None,None],
             [6,None,None,1,9,5,None,None,None],
             [None,9,8,None,None,None,None,6,None],
             [8,None,None,None,6,None,None,None,3],
@@ -38,8 +37,8 @@ unsolved = [[5,3,None,None,7,None,None,None,None],
             [None,None,None,4,1,9,None,None,5],
             [None,None,None,None,8,None,None,7,9]]
 
-'''
-unsolved = [[None,None,None,None,None,None,None,None,None],
+# test empty puzzle
+unsolved2 = [[None,None,None,None,None,None,None,None,None],
             [None,None,None,None,None,None,None,None,None],
             [None,None,None,None,None,None,None,None,None],
             [None,None,None,None,None,None,None,None,None],
@@ -48,9 +47,9 @@ unsolved = [[None,None,None,None,None,None,None,None,None],
             [None,None,None,None,None,None,None,None,None],
             [None,None,None,None,None,None,None,None,None],
             [None,None,None,None,None,None,None,None,None]]
-'''
-'''
-unsolved = [[8,None,None,None,None,None,None,None,None],
+
+# test a "hard" puzzle
+unsolved3 = [[8,None,None,None,None,None,None,None,None],
             [None,None,3,6,None,None,None,None,None],
             [None,7,None,None,9,None,2,None,None],
             [None,5,None,None,None,7,None,None,None],
@@ -59,9 +58,9 @@ unsolved = [[8,None,None,None,None,None,None,None,None],
             [None,None,1,None,None,None,None,6,8],
             [None,None,8,5,None,None,None,1,None],
             [None,9,None,None,None,None,4,None,None]]
-'''
-'''
-unsolved = [[1,2,3,4,5,6,7,8,None],
+
+# test unsolvable puzzle (0 legal solutions)
+unsolved4 = [[1,2,3,4,5,6,7,8,None],
             [None,None,None,None,None,None,None,None,2],
             [None,None,None,None,None,None,None,None,3],
             [None,None,None,None,None,None,None,None,4],
@@ -70,14 +69,29 @@ unsolved = [[1,2,3,4,5,6,7,8,None],
             [None,None,None,None,None,None,None,None,7],
             [None,None,None,None,None,None,None,None,8],
             [None,None,None,None,None,None,None,None,9]]
-'''
 
-start = timer()
-result = Sudoku_Puzzle.solve(unsolved, 0, 0)
-end = timer()
+# gather full list of unsolved puzzles
+unsolved_puzzles = []
+unsolved_puzzles.append(unsolved1)
+unsolved_puzzles.append(unsolved2)
+unsolved_puzzles.append(unsolved3)
+unsolved_puzzles.append(unsolved4)
 
-if result:
-  print("Puzzle is legal. Solution was found in " + str(round(end-start, 4)) + " seconds. Solution is:")
-  pprint(unsolved)
-else:
-  print("Puzzle is not legal and cannot be solved. This was determined in " + str(round(end-start, 5)) + " seconds.")
+# iterate through tests
+start_of_testing = timer()
+for puzzle in unsolved_puzzles:
+    print('\n\nPuzzle:')
+    pprint(puzzle)
+    test_case_start = timer()
+    result = Sudoku_Puzzle.solve(puzzle,0,0)
+    test_case_end = timer()
+    print('===')
+    if result:
+        print('Puzzle is legal. Solution was found in ' + str(round(test_case_end-test_case_start,4)) + ' seconds. Solution is:')
+        pprint(puzzle)
+    else:
+        print('Puzzle is not legal and cannot be solved. This was determined in ' + str(round(test_case_end-test_case_start,7)) + ' seconds.')
+
+end_of_testing = timer()
+print('---------------')
+print('Testing has ended. It took a total of ' + str(round(end_of_testing-start_of_testing,4)) + ' seconds, with an average solve time of ' + str(round((end_of_testing-start_of_testing)/len(unsolved_puzzles),4)) + ' seconds.')
