@@ -1,6 +1,7 @@
 import tkinter as tk
 # helpful for GUI: http://newcoder.io/gui/part-3
 # https://www.youtube.com/watch?v=jE-SpRI3K5g&list=PLDyQo7g0_nsULCDha3lv7rw2t6AnhNTHV&index=4
+# https://stackoverflow.com/questions/17466561/best-way-to-structure-a-tkinter-application/17470842
 
 class Sudoku_GUI:
     def __init__(self, win_HT=800, win_WT=800,bg_color='#FF9D88'):
